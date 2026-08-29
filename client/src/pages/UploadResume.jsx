@@ -48,9 +48,7 @@ const UploadResume = () => {
         formData.append('resume', file);
 
         try {
-            await api.post('/resume/upload', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            await api.post('/resume/upload', formData);
             setTimeout(() => {
                 navigate('/careers');
             }, 1000);
