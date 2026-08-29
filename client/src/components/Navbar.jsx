@@ -32,6 +32,7 @@ const Navbar = () => {
                                 <Link to="/dashboard" className="hover:text-brand-500 transition-colors">Dashboard</Link>
                                 <Link to="/careers" className="hover:text-brand-500 transition-colors">Careers</Link>
                                 <Link to="/upload-resume" className="hover:text-brand-500 transition-colors">Upload Resume</Link>
+                                <Link to="/chat" className="hover:text-brand-500 transition-colors flex items-center gap-1"><span className="text-lg">🤖</span> AI Assistant</Link>
                                 
                                 <div className="relative">
                                     <button 
@@ -85,6 +86,7 @@ const Navbar = () => {
                             <Link to="/dashboard" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-800">Dashboard</Link>
                             <Link to="/careers" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-800">Careers</Link>
                             <Link to="/upload-resume" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-800">Upload Resume</Link>
+                            <Link to="/chat" className="block px-3 py-2 rounded-md text-base font-medium hover:bg-brand-800">🤖 AI Assistant</Link>
                             <button onClick={handleLogout} className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-red-400 hover:bg-brand-800">
                                 Logout
                             </button>

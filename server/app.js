@@ -7,6 +7,7 @@ const resumeRoutes = require('./routes/resumeRoutes');
 const careerRoutes = require('./routes/careerRoutes');
 const analysisRoutes = require('./routes/analysisRoutes');
 const roadmapRoutes = require('./routes/roadmapRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/resume', resumeRoutes);
 app.use('/api/careers', careerRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/roadmap', roadmapRoutes);
+app.use('/api/chat', chatRoutes);
 
 app.use(errorHandler);
 

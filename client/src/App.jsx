@@ -13,6 +13,7 @@ import CareerDetails from './pages/CareerDetails';
 import SkillAnalysis from './pages/SkillAnalysis';
 import PersonalizedRoadmap from './pages/PersonalizedRoadmap';
 import DetailedRoadmap from './pages/DetailedRoadmap';
+import AIChatbot from './pages/AIChatbot';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/analysis" element={<ProtectedRoute><SkillAnalysis /></ProtectedRoute>} />
           <Route path="/roadmap" element={<ProtectedRoute><PersonalizedRoadmap /></ProtectedRoute>} />
           <Route path="/roadmap/:career/:skill" element={<ProtectedRoute><DetailedRoadmap /></ProtectedRoute>} />
+          <Route path="/chat" element={<ProtectedRoute><AIChatbot /></ProtectedRoute>} />
         </Routes>
       </main>
     </div>
