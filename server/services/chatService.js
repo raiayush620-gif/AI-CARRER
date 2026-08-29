@@ -51,7 +51,7 @@ const generateWithGemini = async (messages, apiKey) => {
     // Build system instruction combining prompt and context
     const systemMessage = messages.find(msg => msg.role === 'system')?.content || SYSTEM_PROMPT;
 
-    const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+    const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${apiKey}`, {
         contents,
         systemInstruction: { parts: [{ text: systemMessage }] }
     }, {
