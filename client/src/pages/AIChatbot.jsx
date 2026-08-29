@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Bot, Send, Trash2, LoaderCircle, Sparkles } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import api from '../services/api';
 
 const AIChatbot = () => {
@@ -141,7 +142,13 @@ const AIChatbot = () => {
                                                 <Bot className="w-3.5 h-3.5" /> AI Assistant
                                             </div>
                                         )}
-                                        <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
+                                        <div className="prose prose-sm sm:prose-base max-w-none break-words">
+                                            {msg.role === 'assistant' && !msg.isError ? (
+                                                <ReactMarkdown>{msg.content}</ReactMarkdown>
+                                            ) : (
+                                                <div className="whitespace-pre-wrap leading-relaxed">{msg.content}</div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
