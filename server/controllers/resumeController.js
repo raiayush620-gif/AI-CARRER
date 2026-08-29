@@ -10,13 +10,13 @@ exports.uploadResume = async (req, res, next) => {
 
         const dataBuffer = req.file.buffer;
         const data = await pdfParse(dataBuffer);
-        const extractedText = data.text;
+        const extractedText = data.text?.trim() || 'NO_TEXT_EXTRACTED';
         
         const detectedSkills = detectSkills(extractedText);
         
         const resume = await Resume.create({
             userId: req.user._id,
-            originalFileName: req.file.originalname,
+            originalFileName: req.file?.originalname || 'resume.pdf',
             extractedText,
             detectedSkills
         });
