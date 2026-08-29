@@ -57,7 +57,7 @@ exports.getLatestAnalysis = async (req, res, next) => {
     try {
         const analysis = await CareerAnalysis.findOne({ userId: req.user._id }).sort({ createdAt: -1 });
         if (!analysis) {
-            res.status(404); throw new Error('No analysis found');
+            return res.status(200).json(null);
         }
         res.status(200).json(analysis);
     } catch (error) { next(error); }
