@@ -27,6 +27,8 @@ app.use('/api/careers', careerRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/roadmap', roadmapRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/resume-improvement', require('./routes/resumeImprovementRoutes'));
+app.use('/api/interviews', require('./routes/interviewRoutes'));
 
 app.use(errorHandler);
 

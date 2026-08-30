@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { FileText, Briefcase, Map, Target, TrendingUp, Sparkles, AlertCircle } from 'lucide-react';
+import { FileText, Briefcase, Map, Target, TrendingUp, Sparkles, AlertCircle, Mic, Star } from 'lucide-react';
 import api from '../services/api';
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
     const [analysis, setAnalysis] = useState(null);
+    const [improvedResumeData, setImprovedResumeData] = useState(null);
+    const [interviewData, setInterviewData] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -17,9 +19,22 @@ const Dashboard = () => {
                 setAnalysis(data);
             } catch (err) {
                 console.log("No analysis found");
-            } finally {
-                setLoading(false);
             }
+            try {
+                const { data } = await api.get('/resume-improvement/data');
+                setImprovedResumeData(data.improvedResume);
+            } catch (err) {
+                console.log("No improved resume found");
+            }
+            try {
+                const { data } = await api.get('/interviews/history');
+                if (data && data.length > 0) {
+                    setInterviewData(data[0]); // latest
+                }
+            } catch (err) {
+                console.log("No interview history found");
+            }
+            setLoading(false);
         };
         fetchDashboardData();
     }, []);
@@ -30,97 +45,136 @@ const Dashboard = () => {
         </div>
     );
 
+    const getApprovedCount = (sections) => {
+        if (!sections) return 0;
+        return Object.values(sections).filter(s => s.status === 'approved').length;
+    };
+
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 transition-colors duration-300">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
+        <div className="max-w-7xl mx-auto transition-colors duration-300">
+            <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">
-                        Welcome back, {user?.name.split(' ')[0]} <span className="text-2xl">👋</span>
+                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
+                        <Sparkles className="w-8 h-8 text-brand-500" />
+                        Welcome back, {user.name.split(' ')[0]}!
                     </h1>
-                    <p className="text-gray-600 dark:text-gray-400">Continue building your career journey with CAREER MAKER.</p>
+                    <p className="text-gray-600 dark:text-gray-400 mt-2 text-lg">Here is an overview of your career preparation progress.</p>
                 </div>
-                <button onClick={() => navigate('/chat')} className="mt-4 md:mt-0 flex items-center gap-2 bg-white dark:bg-dark-card text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-900 px-6 py-2.5 rounded-full hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors shadow-sm font-medium">
-                    <Sparkles className="w-4 h-4" /> Ask AI Assistant
-                </button>
             </div>
 
-            {analysis ? (
-                <>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                        <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border flex flex-col items-center text-center group hover:shadow-md transition-shadow">
-                            <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Briefcase className="w-7 h-7" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                {/* CAREER ANALYSIS CARD */}
+                <div className="lg:col-span-2 bg-white dark:bg-dark-card p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border relative overflow-hidden flex flex-col justify-between">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                    <div>
+                        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 uppercase tracking-wide flex items-center gap-2">
+                            <Target className="w-5 h-5 text-brand-500" /> Career Readiness
+                        </h2>
+                        {analysis ? (
+                            <div className="flex flex-col sm:flex-row items-center gap-6 mt-6">
+                                <div className="text-center">
+                                    <div className="text-5xl font-extrabold text-brand-600 dark:text-brand-400">{analysis.readinessScore}<span className="text-2xl text-gray-400">%</span></div>
+                                    <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mt-1 uppercase">Readiness Score</p>
+                                </div>
+                                <div className="flex-1 space-y-3 w-full">
+                                    <div className="flex justify-between items-center bg-gray-50 dark:bg-dark-bg p-3 rounded-xl border border-gray-100 dark:border-dark-border">
+                                        <span className="font-semibold text-gray-600 dark:text-gray-300">Target Role</span>
+                                        <span className="font-bold text-gray-900 dark:text-white truncate ml-4">{analysis.careerName}</span>
+                                    </div>
+                                    <div className="flex gap-3">
+                                        <div className="flex-1 bg-green-50 dark:bg-green-900/10 p-3 rounded-xl border border-green-100 dark:border-green-900/30 text-center">
+                                            <div className="text-xl font-bold text-green-600 dark:text-green-400">{analysis.matchedSkills.length}</div>
+                                            <div className="text-xs font-semibold text-green-700 dark:text-green-500 uppercase">Matched</div>
+                                        </div>
+                                        <div className="flex-1 bg-red-50 dark:bg-red-900/10 p-3 rounded-xl border border-red-100 dark:border-red-900/30 text-center">
+                                            <div className="text-xl font-bold text-red-600 dark:text-red-400">{analysis.missingSkills.length}</div>
+                                            <div className="text-xs font-semibold text-red-700 dark:text-red-500 uppercase">Missing</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Target Career</h3>
-                            <p className="text-xl font-bold text-gray-900 dark:text-white mt-1 truncate w-full px-2" title={analysis.careerName}>{analysis.careerName}</p>
-                        </div>
-                        <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border flex flex-col items-center text-center group hover:shadow-md transition-shadow">
-                            <div className="w-14 h-14 bg-brand-50 dark:bg-brand-900/20 text-brand-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Target className="w-7 h-7" />
+                        ) : (
+                            <div className="text-center py-6">
+                                <p className="text-gray-500 dark:text-gray-400 mb-4">No analysis yet. Upload your resume to start.</p>
+                                <button onClick={() => navigate('/upload-resume')} className="bg-brand-500 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-brand-600 transition-colors">Analyze Resume</button>
                             </div>
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Readiness Score</h3>
-                            <div className="flex items-end justify-center gap-1 mt-1">
-                                <p className="text-3xl font-extrabold text-gray-900 dark:text-white leading-none">{analysis.readinessScore}</p>
-                                <span className="text-lg font-bold text-gray-500 dark:text-gray-400 mb-0.5">%</span>
-                            </div>
-                        </div>
-                        <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border flex flex-col items-center text-center group hover:shadow-md transition-shadow">
-                            <div className="w-14 h-14 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <Map className="w-7 h-7" />
-                            </div>
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Matched Skills</h3>
-                            <p className="text-3xl font-extrabold text-gray-900 dark:text-white mt-1 leading-none">{analysis.matchedSkills.length}</p>
-                        </div>
-                        <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border flex flex-col items-center text-center group hover:shadow-md transition-shadow">
-                            <div className="w-14 h-14 bg-red-50 dark:bg-red-900/20 text-red-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                <TrendingUp className="w-7 h-7" />
-                            </div>
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Skills to Learn</h3>
-                            <p className="text-3xl font-extrabold text-gray-900 dark:text-white mt-1 leading-none">{analysis.missingSkills.length}</p>
-                        </div>
+                        )}
                     </div>
+                </div>
 
-                    <div className="bg-gradient-to-r from-brand-600 to-blue-700 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-between mb-12 shadow-lg">
+                {/* SIDE CARDS */}
+                <div className="flex flex-col gap-6">
+                    {/* RESUME IMPROVEMENT CARD */}
+                    <div className="bg-white dark:bg-dark-card p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border flex-1 flex flex-col justify-between group">
                         <div>
-                            <h3 className="text-2xl font-bold mb-2">Resume analyzed successfully!</h3>
-                            <p className="text-brand-100 max-w-xl">You're on your way to becoming a {analysis.careerName}. Follow your personalized roadmap to master your missing skills.</p>
+                            <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2 mb-4">
+                                <FileText className="w-4 h-4" /> AI Resume
+                            </h2>
+                            {improvedResumeData ? (
+                                <div className="mb-4">
+                                    <div className="text-3xl font-extrabold text-gray-900 dark:text-white">
+                                        {getApprovedCount(improvedResumeData.sections)} <span className="text-lg text-gray-400">/ 8</span>
+                                    </div>
+                                    <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mt-1">Improved Sections</p>
+                                </div>
+                            ) : (
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Transform your resume into a premium version.</p>
+                            )}
                         </div>
-                        <button onClick={() => navigate('/roadmap')} className="mt-6 md:mt-0 shrink-0 bg-white text-brand-700 hover:bg-gray-50 px-6 py-3 rounded-xl font-bold transition-colors shadow-sm">
-                            View My Roadmap
+                        <button onClick={() => navigate('/resume-improvement')} className="w-full py-2.5 bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:border-brand-500 hover:text-brand-600 transition-colors">
+                            Improve Resume
                         </button>
                     </div>
-                </>
-            ) : (
-                <div className="bg-white dark:bg-dark-card p-12 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border text-center mb-12 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="w-20 h-20 bg-gray-50 dark:bg-dark-bg rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-100 dark:border-dark-border">
-                        <AlertCircle className="w-10 h-10 text-gray-400 dark:text-gray-500" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">No Analysis Yet</h3>
-                    <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-md mx-auto text-lg">Upload your resume and select a career to generate your personalized skill gap analysis.</p>
-                    <button onClick={() => navigate('/upload-resume')} className="inline-flex items-center gap-2 bg-brand-500 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-brand-600 transition-colors shadow-lg shadow-brand-500/30">
-                        <FileText className="w-5 h-5" /> Analyze My Resume Now
-                    </button>
-                </div>
-            )}
 
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Quick Actions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <button onClick={() => navigate('/upload-resume')} className="group flex items-start gap-4 p-5 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-brand-500 dark:hover:border-brand-500 hover:shadow-md transition-all text-left">
-                    <div className="p-3.5 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-xl group-hover:scale-110 transition-transform"><FileText className="w-6 h-6" /></div>
-                    <div><h4 className="font-bold text-gray-900 dark:text-white">Upload Resume</h4><p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Update your skills</p></div>
+                    {/* INTERVIEW READINESS CARD */}
+                    <div className="bg-white dark:bg-dark-card p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border flex-1 flex flex-col justify-between group">
+                        <div>
+                            <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide flex items-center gap-2 mb-4">
+                                <Mic className="w-4 h-4" /> Interview Readiness
+                            </h2>
+                            {interviewData ? (
+                                <div className="mb-4">
+                                    <div className="text-3xl font-extrabold text-gray-900 dark:text-white">
+                                        {interviewData.overallScore || 0} <span className="text-lg text-gray-400">/ 100</span>
+                                    </div>
+                                    <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mt-1 truncate">Latest: {interviewData.role}</p>
+                                </div>
+                            ) : (
+                                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">No mock interviews completed yet.</p>
+                            )}
+                        </div>
+                        <button onClick={() => navigate('/mock-interview')} className="w-full py-2.5 bg-brand-500 text-white font-bold rounded-xl hover:bg-brand-600 transition-colors shadow-sm shadow-brand-500/20">
+                            Start Interview
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Explore Tools</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <button onClick={() => navigate('/upload-resume')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-brand-500 dark:hover:border-brand-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-xl"><Upload className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">Upload Resume</span>
                 </button>
-                <button onClick={() => navigate('/careers')} className="group flex items-start gap-4 p-5 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md transition-all text-left">
-                    <div className="p-3.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-xl group-hover:scale-110 transition-transform"><Briefcase className="w-6 h-6" /></div>
-                    <div><h4 className="font-bold text-gray-900 dark:text-white">Choose Career</h4><p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Explore paths</p></div>
+                <button onClick={() => navigate('/careers')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-xl"><Compass className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">Career Explorer</span>
                 </button>
-                <button onClick={() => navigate('/analysis')} className="group flex items-start gap-4 p-5 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all text-left">
-                    <div className="p-3.5 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-xl group-hover:scale-110 transition-transform"><Target className="w-6 h-6" /></div>
-                    <div><h4 className="font-bold text-gray-900 dark:text-white">Skill Analysis</h4><p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">View your gaps</p></div>
+                <button onClick={() => navigate('/analysis')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-purple-500 dark:hover:border-purple-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-xl"><Target className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">Skill Analysis</span>
                 </button>
-                <button onClick={() => navigate('/roadmap')} className="group flex items-start gap-4 p-5 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-green-500 dark:hover:border-green-500 hover:shadow-md transition-all text-left">
-                    <div className="p-3.5 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-xl group-hover:scale-110 transition-transform"><Map className="w-6 h-6" /></div>
-                    <div><h4 className="font-bold text-gray-900 dark:text-white">View Roadmap</h4><p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Continue learning</p></div>
+                <button onClick={() => navigate('/roadmap')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-green-500 dark:hover:border-green-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-xl"><Map className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">My Roadmap</span>
+                </button>
+                <button onClick={() => navigate('/resume-improvement')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-orange-500 dark:hover:border-orange-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 rounded-xl"><FileText className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">AI Resume</span>
+                </button>
+                <button onClick={() => navigate('/mock-interview')} className="flex flex-col items-center justify-center gap-3 p-6 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-2xl hover:border-red-500 dark:hover:border-red-500 hover:shadow-md transition-all">
+                    <div className="p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl"><Mic className="w-6 h-6" /></div>
+                    <span className="font-bold text-sm text-gray-900 dark:text-white text-center">Mock Interview</span>
                 </button>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import SidebarLayout from './components/SidebarLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Pages
@@ -14,29 +15,33 @@ import SkillAnalysis from './pages/SkillAnalysis';
 import PersonalizedRoadmap from './pages/PersonalizedRoadmap';
 import DetailedRoadmap from './pages/DetailedRoadmap';
 import AIChatbot from './pages/AIChatbot';
+import ResumeImprovement from './pages/ResumeImprovement';
+import MockInterviewSetup from './pages/MockInterviewSetup';
+import MockInterviewSession from './pages/MockInterviewSession';
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col font-sans">
-      <Navbar />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          
-          {/* Protected Routes */}
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/upload-resume" element={<ProtectedRoute><UploadResume /></ProtectedRoute>} />
-          <Route path="/careers" element={<ProtectedRoute><Careers /></ProtectedRoute>} />
-          <Route path="/careers/:name" element={<ProtectedRoute><CareerDetails /></ProtectedRoute>} />
-          <Route path="/analysis" element={<ProtectedRoute><SkillAnalysis /></ProtectedRoute>} />
-          <Route path="/roadmap" element={<ProtectedRoute><PersonalizedRoadmap /></ProtectedRoute>} />
-          <Route path="/roadmap/:career/:skill" element={<ProtectedRoute><DetailedRoadmap /></ProtectedRoute>} />
-          <Route path="/chat" element={<ProtectedRoute><AIChatbot /></ProtectedRoute>} />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      {/* Public Routes with standalone Navbar */}
+      <Route path="/" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><LandingPage /></main></div>} />
+      <Route path="/login" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><Login /></main></div>} />
+      <Route path="/register" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><Register /></main></div>} />
+      
+      {/* Protected Routes with Sidebar Layout */}
+      <Route element={<ProtectedRoute><SidebarLayout /></ProtectedRoute>}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/upload-resume" element={<UploadResume />} />
+        <Route path="/careers" element={<Careers />} />
+        <Route path="/careers/:name" element={<CareerDetails />} />
+        <Route path="/analysis" element={<SkillAnalysis />} />
+        <Route path="/roadmap" element={<PersonalizedRoadmap />} />
+        <Route path="/roadmap/:career/:skill" element={<DetailedRoadmap />} />
+        <Route path="/chat" element={<AIChatbot />} />
+        <Route path="/resume-improvement" element={<ResumeImprovement />} />
+        <Route path="/mock-interview" element={<MockInterviewSetup />} />
+        <Route path="/mock-interview/:id" element={<MockInterviewSession />} />
+      </Route>
+    </Routes>
   );
 }
 
