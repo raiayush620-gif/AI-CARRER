@@ -34,7 +34,7 @@ const CircularProgress = ({ percentage }) => {
                 />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">{percentage}%</span>
+                <span className="text-4xl font-extrabold text-primary-theme">{percentage}%</span>
             </div>
         </div>
     );
@@ -72,11 +72,11 @@ const SkillAnalysis = () => {
                 <div className="w-20 h-20 bg-gray-50 dark:bg-dark-bg rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-100 dark:border-dark-border">
                     <Compass className="w-10 h-10 text-gray-400 dark:text-gray-500" />
                 </div>
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">Complete your setup</h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">{error || 'Upload your resume and choose a career to view your analysis.'}</p>
+                <h2 className="text-3xl font-extrabold text-primary-theme mb-4">Complete your setup</h2>
+                <p className="text-secondary-theme mb-8 text-lg">{error || 'Upload your resume and choose a career to view your analysis.'}</p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onClick={() => navigate('/upload-resume')} className="px-8 py-3.5 bg-brand-500 text-white font-bold rounded-xl hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all">Upload Resume</button>
-                    <button onClick={() => navigate('/careers')} className="px-8 py-3.5 bg-white dark:bg-dark-card border-2 border-gray-200 dark:border-dark-border text-gray-700 dark:text-gray-300 font-bold rounded-xl hover:border-brand-500 dark:hover:border-brand-500 transition-all">Explore Careers</button>
+                    <button onClick={() => navigate('/upload-resume')} className="btn-primary px-8 py-3.5">Upload Resume</button>
+                    <button onClick={() => navigate('/careers')} className="btn-secondary px-8 py-3.5">Explore Careers</button>
                 </div>
             </div>
         );
@@ -89,7 +89,7 @@ const SkillAnalysis = () => {
     return (
         <div className="max-w-5xl mx-auto px-4 py-12 transition-colors duration-300">
             <div className="text-center mb-12">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">Skill Gap Analysis</h1>
+                <h1 className="text-4xl md:text-5xl font-extrabold text-primary-theme tracking-tight mb-4">Skill Gap Analysis</h1>
                 <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 font-medium border border-brand-100 dark:border-brand-800/30 text-lg">
                     <Target className="w-5 h-5" />
                     <span>Target Career: <strong className="font-bold">{analysis.careerName}</strong></span>
@@ -98,9 +98,9 @@ const SkillAnalysis = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Score Section */}
-                <div className="md:col-span-1 bg-white dark:bg-dark-card p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border flex flex-col items-center justify-center text-center h-full relative overflow-hidden transition-colors duration-300">
+                <div className="md:col-span-1 card p-8 flex flex-col items-center justify-center text-center h-full relative overflow-hidden transition-colors duration-300">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-                    <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-8">Career Readiness Score</h3>
+                    <h3 className="text-sm font-bold text-secondary-theme uppercase tracking-wider mb-8">Career Readiness Score</h3>
                     
                     <CircularProgress percentage={analysis.readinessScore} />
                     
@@ -111,9 +111,9 @@ const SkillAnalysis = () => {
 
                 {/* Skills Section */}
                 <div className="md:col-span-2 space-y-6">
-                    <div className="bg-white dark:bg-dark-card p-8 rounded-3xl shadow-sm border border-green-100 dark:border-green-900/30 transition-colors duration-300">
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
-                            <div className="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg">
+                    <div className="card border-brand-500/30 p-8 transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-primary-theme mb-6 flex items-center gap-3">
+                            <div className="p-2 bg-brand-500/20 text-brand-500 rounded-lg">
                                 <CheckCircle className="w-5 h-5" />
                             </div>
                             Matched Skills <span className="text-gray-400 dark:text-gray-500 text-base font-medium">({analysis.matchedSkills.length})</span>
@@ -127,18 +127,18 @@ const SkillAnalysis = () => {
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-dark-bg p-4 rounded-xl border border-gray-100 dark:border-dark-border text-center font-medium">No exact skill matches found from your resume.</p>
+                            <p className="text-secondary-theme bg-gray-50 dark:bg-dark-bg p-4 rounded-xl border border-gray-100 dark:border-dark-border text-center font-medium">No exact skill matches found from your resume.</p>
                         )}
                     </div>
 
-                    <div className="bg-white dark:bg-dark-card p-8 rounded-3xl shadow-sm border border-orange-100 dark:border-orange-900/30 transition-colors duration-300">
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-3">
-                            <div className="p-2 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-lg">
+                    <div className="card border-gold-500/30 p-8 transition-colors duration-300">
+                        <h3 className="text-xl font-bold text-primary-theme mb-3 flex items-center gap-3">
+                            <div className="p-2 bg-gold-500/20 text-gold-500 rounded-lg">
                                 <AlertTriangle className="w-5 h-5" />
                             </div>
                             Missing Skills <span className="text-gray-400 dark:text-gray-500 text-base font-medium">({analysis.missingSkills.length})</span>
                         </h3>
-                        <p className="text-gray-600 dark:text-gray-400 mb-6 font-medium">Mastering these skills will significantly boost your readiness for this career path.</p>
+                        <p className="text-secondary-theme mb-6 font-medium">Mastering these skills will significantly boost your readiness for this career path.</p>
                         
                         {analysis.missingSkills.length > 0 ? (
                             <div className="flex flex-wrap gap-3">

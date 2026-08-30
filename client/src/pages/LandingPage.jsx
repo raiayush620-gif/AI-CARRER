@@ -7,8 +7,8 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
         <div className="w-14 h-14 bg-brand-50 dark:bg-brand-900/20 text-brand-500 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
             <Icon className="w-7 h-7" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{title}</h3>
-        <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{description}</p>
+        <h3 className="text-xl font-bold text-primary-theme mb-3">{title}</h3>
+        <p className="text-secondary-theme leading-relaxed">{description}</p>
     </div>
 );
 
@@ -17,13 +17,13 @@ const StepCard = ({ number, title, description }) => (
         <div className="w-16 h-16 bg-white dark:bg-dark-card border-2 border-brand-500 rounded-full flex items-center justify-center text-xl font-bold text-brand-500 mb-4 shadow-lg z-10">
             {number}
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{title}</h3>
-        <p className="text-gray-600 dark:text-gray-400">{description}</p>
+        <h3 className="text-xl font-bold text-primary-theme mb-2">{title}</h3>
+        <p className="text-secondary-theme">{description}</p>
     </div>
 );
 
 const CareerCategory = ({ title }) => (
-    <div className="px-6 py-4 bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-xl font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md hover:border-brand-500 dark:hover:border-brand-500 transition-all cursor-default">
+    <div className="px-6 py-4 card rounded-xl font-medium text-gray-800 dark:text-gray-200 shadow-sm hover:shadow-md hover:border-brand-500 dark:hover:border-brand-500 transition-all cursor-default">
         {title}
     </div>
 );
@@ -43,7 +43,7 @@ const LandingPage = () => {
                             <Sparkles className="w-4 h-4" /> 
                             <span>Premium AI-Powered Career Platform</span>
                         </div>
-                        <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-tight mb-6">
+                        <h1 className="text-5xl md:text-6xl font-extrabold text-primary-theme tracking-tight leading-tight mb-6">
                             CAREER MAKER
                             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-blue-600 mt-2">
                                 Build Skills. Close Gaps.<br />Build Your Future.
@@ -73,10 +73,10 @@ const LandingPage = () => {
                         <div className="absolute inset-0 bg-gradient-to-tr from-brand-100 to-blue-50 dark:from-brand-900/20 dark:to-blue-900/10 rounded-full blur-3xl opacity-50"></div>
                         
                         {/* Center Image/Circle */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-full shadow-2xl flex flex-col items-center justify-center z-10">
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 card rounded-full shadow-2xl flex flex-col items-center justify-center z-10">
                             <Target className="w-16 h-16 text-brand-500 mb-2" />
-                            <div className="text-2xl font-bold text-gray-900 dark:text-white">Software</div>
-                            <div className="text-gray-500 dark:text-gray-400 font-medium">Developer</div>
+                            <div className="text-2xl font-bold text-primary-theme">Software</div>
+                            <div className="text-secondary-theme font-medium">Developer</div>
                         </div>
 
                         {/* Floating Cards */}
@@ -85,8 +85,8 @@ const LandingPage = () => {
                                 <span className="font-bold text-lg">85%</span>
                             </div>
                             <div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Resume Score</div>
-                                <div className="font-bold text-gray-900 dark:text-white">Excellent</div>
+                                <div className="text-sm text-secondary-theme font-medium">Resume Score</div>
+                                <div className="font-bold text-primary-theme">Excellent</div>
                             </div>
                         </div>
 
@@ -95,8 +95,8 @@ const LandingPage = () => {
                                 <Code className="w-6 h-6" />
                             </div>
                             <div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Skill Match</div>
-                                <div className="font-bold text-gray-900 dark:text-white">12 Skills</div>
+                                <div className="text-sm text-secondary-theme font-medium">Skill Match</div>
+                                <div className="font-bold text-primary-theme">12 Skills</div>
                             </div>
                         </div>
 
@@ -105,8 +105,8 @@ const LandingPage = () => {
                                 <Map className="w-6 h-6" />
                             </div>
                             <div>
-                                <div className="text-sm text-gray-500 dark:text-gray-400 font-medium">Learning Progress</div>
-                                <div className="font-bold text-gray-900 dark:text-white">68%</div>
+                                <div className="text-sm text-secondary-theme font-medium">Learning Progress</div>
+                                <div className="font-bold text-primary-theme">68%</div>
                             </div>
                         </div>
                     </div>
@@ -117,8 +117,8 @@ const LandingPage = () => {
             <div className="py-24 bg-white dark:bg-[#151e2e] relative">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">Everything you need to land your dream job</h2>
-                        <p className="mt-4 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Powerful tools to analyze your strengths, discover gaps, and guide your learning journey.</p>
+                        <h2 className="text-3xl font-bold text-primary-theme sm:text-4xl">Everything you need to land your dream job</h2>
+                        <p className="mt-4 text-xl text-secondary-theme max-w-2xl mx-auto">Powerful tools to analyze your strengths, discover gaps, and guide your learning journey.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <FeatureCard 
@@ -159,8 +159,8 @@ const LandingPage = () => {
             <div className="py-24 bg-gray-50 dark:bg-dark-bg">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">How it works</h2>
-                        <p className="mt-4 text-xl text-gray-600 dark:text-gray-400">Five simple steps to accelerate your career.</p>
+                        <h2 className="text-3xl font-bold text-primary-theme sm:text-4xl">How it works</h2>
+                        <p className="mt-4 text-xl text-secondary-theme">Five simple steps to accelerate your career.</p>
                     </div>
                     
                     <div className="relative">
@@ -197,7 +197,7 @@ const LandingPage = () => {
             {/* CAREER CATEGORIES */}
             <div className="py-24 bg-white dark:bg-[#151e2e]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl mb-12">Explore Top Career Paths</h2>
+                    <h2 className="text-3xl font-bold text-primary-theme sm:text-4xl mb-12">Explore Top Career Paths</h2>
                     <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
                         <CareerCategory title="Software Developer" />
                         <CareerCategory title="Data Scientist" />
@@ -218,10 +218,10 @@ const LandingPage = () => {
             </div>
 
             {/* Footer */}
-            <footer className="bg-gray-50 dark:bg-dark-bg py-12 border-t border-gray-200 dark:border-dark-border text-center text-gray-500 dark:text-gray-400">
+            <footer className="bg-gray-50 dark:bg-dark-bg py-12 border-t border-gray-200 dark:border-dark-border text-center text-secondary-theme">
                 <div className="flex justify-center items-center gap-2 mb-4">
                     <Rocket className="w-6 h-6 text-brand-500" />
-                    <span className="font-bold text-gray-900 dark:text-white text-lg">CAREER MAKER</span>
+                    <span className="font-bold text-primary-theme text-lg">CAREER MAKER</span>
                 </div>
                 <p>© {new Date().getFullYear()} Career Maker. Build Skills. Shape Your Future.</p>
             </footer>

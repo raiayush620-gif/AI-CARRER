@@ -94,13 +94,13 @@ const AIChatbot = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)] flex flex-col transition-colors duration-300">
             <div className="flex justify-between items-end mb-6">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-extrabold text-primary-theme flex items-center gap-3">
                         <div className="bg-brand-100 dark:bg-brand-900/30 p-2 rounded-xl text-brand-600 dark:text-brand-400">
                             <Bot className="w-7 h-7" />
                         </div>
                         AI Career Assistant
                     </h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">Your personal guide for programming, career growth, and interviews.</p>
+                    <p className="text-secondary-theme mt-2 font-medium">Your personal guide for programming, career growth, and interviews.</p>
                 </div>
                 {messages.length > 0 && (
                     <button onClick={clearHistory} className="text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition-colors flex items-center gap-2 text-sm font-bold bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border px-4 py-2 rounded-lg hover:border-red-200 dark:hover:border-red-900/50">
@@ -113,11 +113,11 @@ const AIChatbot = () => {
                 <div className="flex-1 overflow-y-auto p-4 sm:p-8 bg-gray-50/50 dark:bg-dark-bg/50">
                     {messages.length === 0 ? (
                         <div className="h-full flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
-                            <div className="w-20 h-20 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-brand-500/10">
+                            <div className="w-20 h-20 bg-gold-500/10 text-gold-500 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-brand-500/10">
                                 <Sparkles className="w-10 h-10" />
                             </div>
-                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Hi! I'm your AI Assistant.</h2>
-                            <p className="text-gray-600 dark:text-gray-400 mb-10 text-lg">I can help you analyze your skills, prepare for technical interviews, debug code, or explain complex concepts.</p>
+                            <h2 className="text-3xl font-bold text-primary-theme mb-3">Hi! I'm your AI Assistant.</h2>
+                            <p className="text-secondary-theme mb-10 text-lg">I can help you analyze your skills, prepare for technical interviews, debug code, or explain complex concepts.</p>
                             
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full">
                                 {['What should I learn to become a MERN developer?', 'How can I improve my resume?', 'Explain React hooks with examples.', 'Suggest a project for my current skill level.'].map((q, i) => (
@@ -134,17 +134,17 @@ const AIChatbot = () => {
                                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                     <div className={`max-w-[90%] sm:max-w-[80%] rounded-3xl px-6 py-4 shadow-sm ${
                                         msg.role === 'user' 
-                                            ? 'bg-brand-500 text-white rounded-br-sm' 
+                                            ? 'bg-light-card dark:bg-dark-card border border-[rgba(29,42,34,0.12)] dark:border-[rgba(198,161,91,0.12)] text-primary-theme rounded-br-sm' 
                                             : msg.isError 
                                                 ? 'bg-red-50 dark:bg-red-900/10 text-red-700 dark:text-red-400 border border-red-100 dark:border-red-900/30 rounded-bl-sm' 
-                                                : 'bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border text-gray-800 dark:text-gray-200 rounded-bl-sm shadow-sm'
+                                                : 'bg-brand-500/10 border border-brand-500/20 text-primary-theme rounded-bl-sm shadow-sm'
                                     }`}>
                                         {msg.role === 'assistant' && !msg.isError && (
                                             <div className="flex items-center gap-2 mb-2 text-brand-600 dark:text-brand-400 font-bold text-xs uppercase tracking-wider">
                                                 <Bot className="w-4 h-4" /> Career Maker AI
                                             </div>
                                         )}
-                                        <div className={`prose prose-sm sm:prose-base max-w-none break-words ${msg.role === 'user' ? 'text-white' : 'dark:prose-invert prose-brand'}`}>
+                                        <div className={`prose prose-sm sm:prose-base max-w-none break-words ${msg.role === 'user' ? 'text-primary-theme' : 'dark:prose-invert prose-brand'}`}>
                                             {msg.role === 'assistant' && !msg.isError ? (
                                                 <ReactMarkdown>{msg.content}</ReactMarkdown>
                                             ) : (
@@ -156,7 +156,7 @@ const AIChatbot = () => {
                             ))}
                             {loading && (
                                 <div className="flex justify-start">
-                                    <div className="bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border text-gray-500 dark:text-gray-400 rounded-3xl rounded-bl-sm px-6 py-4 shadow-sm flex items-center gap-3">
+                                    <div className="card text-secondary-theme rounded-3xl rounded-bl-sm px-6 py-4 shadow-sm flex items-center gap-3">
                                         <LoaderCircle className="w-5 h-5 animate-spin text-brand-500" />
                                         <span className="text-sm font-bold">Assistant is thinking...</span>
                                     </div>
@@ -175,7 +175,7 @@ const AIChatbot = () => {
                                 onChange={(e) => setInput(e.target.value)}
                                 onKeyDown={handleKeyDown}
                                 placeholder="Message AI Career Assistant..."
-                                className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-2xl py-4 pl-5 pr-14 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white dark:focus:bg-dark-card text-gray-900 dark:text-white transition-all resize-none max-h-32 min-h-[60px]"
+                                className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-2xl py-4 pl-5 pr-14 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white dark:focus:bg-dark-card text-primary-theme transition-all resize-none max-h-32 min-h-[60px]"
                                 rows="1"
                             />
                             <button 

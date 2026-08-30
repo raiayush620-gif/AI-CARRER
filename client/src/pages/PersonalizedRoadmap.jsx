@@ -34,8 +34,8 @@ const PersonalizedRoadmap = () => {
                 <div className="w-20 h-20 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100 dark:border-green-900/30">
                     <CheckCircle className="w-10 h-10 text-green-500 dark:text-green-400" />
                 </div>
-                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-4">You're all set!</h2>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">You already possess the core skills required for this career path.</p>
+                <h2 className="text-3xl font-extrabold text-primary-theme mb-4">You're all set!</h2>
+                <p className="text-secondary-theme mb-8 text-lg">You already possess the core skills required for this career path.</p>
                 <button onClick={() => navigate('/dashboard')} className="px-8 py-3.5 bg-brand-500 text-white font-bold rounded-xl hover:bg-brand-600 shadow-lg shadow-brand-500/30 transition-all">Return to Dashboard</button>
             </div>
         );
@@ -48,9 +48,9 @@ const PersonalizedRoadmap = () => {
                     <Sparkles className="w-4 h-4" /> 
                     <span>AI-Generated Path</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">Your Personalized Roadmap</h1>
-                <p className="mt-2 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                    A step-by-step curriculum designed to bridge your skill gap for <strong className="font-bold text-gray-900 dark:text-white">{analysis.careerName}</strong>.
+                <h1 className="text-4xl md:text-5xl font-extrabold text-primary-theme tracking-tight mb-4">Your Personalized Roadmap</h1>
+                <p className="mt-2 text-xl text-secondary-theme max-w-2xl mx-auto">
+                    A step-by-step curriculum designed to bridge your skill gap for <strong className="font-bold text-primary-theme">{analysis.careerName}</strong>.
                 </p>
             </div>
 
@@ -75,9 +75,9 @@ const PersonalizedRoadmap = () => {
                                         <div className="md:hidden w-8 h-8 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 font-bold rounded-full flex items-center justify-center text-sm">
                                             {index + 1}
                                         </div>
-                                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{skill}</h3>
+                                        <h3 className="text-2xl font-bold text-primary-theme">{skill}</h3>
                                     </div>
-                                    <p className="text-gray-600 dark:text-gray-400 text-base mb-5 leading-relaxed">
+                                    <p className="text-secondary-theme text-base mb-5 leading-relaxed">
                                         Master this core skill to fulfill the requirements for {analysis.careerName}. This comprehensive module will guide you from basics to advanced concepts.
                                     </p>
                                     

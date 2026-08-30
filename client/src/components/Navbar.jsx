@@ -18,7 +18,7 @@ const Navbar = ({ setSidebarOpen }) => {
     };
 
     return (
-        <nav className="sticky top-0 z-40 w-full bg-white/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-200 dark:border-dark-border text-gray-800 dark:text-gray-200 transition-colors duration-300">
+        <nav className="sticky top-0 z-40 w-full bg-light-card/95 dark:bg-dark-sidebar/95 backdrop-blur-md border-b border-gray-200/50 dark:border-dark-border text-gray-800 dark:text-[#F1EFE7] transition-colors duration-300">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     {/* Left Side */}

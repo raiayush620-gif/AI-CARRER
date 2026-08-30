@@ -51,11 +51,14 @@ const AppBackground = () => {
             />
             
             {/* Overlay Layer for Light/Dark mode readability */}
-            <div className={`absolute inset-0 transition-colors duration-700 ease-in-out ${
-                isDarkMode 
-                    ? 'bg-gray-900/90 backdrop-blur-[2px]' // Dark mode: dark tint, slight blur
-                    : 'bg-white/90 backdrop-blur-[2px]' // Light mode: light tint, slight blur
-            }`} />
+            <div 
+                className={`absolute inset-0 transition-all duration-700 ease-in-out backdrop-blur-[2px]`} 
+                style={{
+                    background: isDarkMode 
+                        ? 'linear-gradient(135deg, rgba(16, 28, 23, 0.92) 0%, rgba(20, 37, 29, 0.88) 50%, rgba(16, 28, 23, 0.94) 100%)'
+                        : 'linear-gradient(135deg, rgba(245, 243, 236, 0.90) 0%, rgba(236, 233, 223, 0.85) 50%, rgba(245, 243, 236, 0.92) 100%)'
+                }}
+            />
         </div>
     );
 };

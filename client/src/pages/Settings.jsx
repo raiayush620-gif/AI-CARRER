@@ -80,7 +80,7 @@ const Settings = () => {
 
     return (
         <div className="max-w-4xl mx-auto py-8 transition-colors duration-300">
-            <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">Profile Settings</h1>
+            <h1 className="text-3xl font-extrabold text-primary-theme mb-8">Profile Settings</h1>
             
             <div className="bg-white/90 dark:bg-dark-card/90 backdrop-blur-md border border-gray-200 dark:border-dark-border p-8 rounded-3xl shadow-sm">
                 <div className="flex flex-col md:flex-row gap-10 items-start">
@@ -160,22 +160,22 @@ const Settings = () => {
                     {/* Right: Profile Info */}
                     <div className="flex-1 space-y-6 w-full">
                         <div>
-                            <label className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 block">Full Name</label>
+                            <label className="text-sm font-bold text-secondary-theme uppercase tracking-wider mb-1 block">Full Name</label>
                             <div className="flex items-center gap-3 bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border px-4 py-3 rounded-xl">
                                 <UserIcon className="w-5 h-5 text-gray-400" />
-                                <span className="text-gray-900 dark:text-white font-medium">{user?.name}</span>
+                                <span className="text-primary-theme font-medium">{user?.name}</span>
                             </div>
                         </div>
                         <div>
-                            <label className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1 block">Email Address</label>
+                            <label className="text-sm font-bold text-secondary-theme uppercase tracking-wider mb-1 block">Email Address</label>
                             <div className="flex items-center gap-3 bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border px-4 py-3 rounded-xl">
                                 <span className="font-bold text-gray-400">@</span>
-                                <span className="text-gray-900 dark:text-white font-medium">{user?.email}</span>
+                                <span className="text-primary-theme font-medium">{user?.email}</span>
                             </div>
                         </div>
                         
                         <div className="pt-4 border-t border-gray-100 dark:border-dark-border">
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                            <p className="text-sm text-secondary-theme">
                                 This is your public profile information. Currently, name and email cannot be changed.
                             </p>
                         </div>

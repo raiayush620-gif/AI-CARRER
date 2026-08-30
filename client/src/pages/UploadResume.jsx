@@ -68,11 +68,11 @@ const UploadResume = () => {
                     <Sparkles className="w-4 h-4" /> 
                     <span>AI-Powered Extraction</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">Upload Your Resume</h1>
-                <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Upload your resume in PDF format. Our AI engine will extract your skills and help identify your career gaps.</p>
+                <h1 className="text-4xl md:text-5xl font-extrabold text-primary-theme tracking-tight mb-4">Upload Your Resume</h1>
+                <p className="text-xl text-secondary-theme max-w-2xl mx-auto">Upload your resume in PDF format. Our AI engine will extract your skills and help identify your career gaps.</p>
             </div>
 
-            <div className="bg-white dark:bg-dark-card p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 dark:border-dark-border relative overflow-hidden transition-colors duration-300">
+            <div className="card p-8 md:p-12 relative overflow-hidden transition-colors duration-300">
                 {/* Background glow */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
@@ -81,14 +81,14 @@ const UploadResume = () => {
                         onDragOver={(e) => { e.preventDefault(); setIsDragActive(true); }}
                         onDragLeave={() => setIsDragActive(false)}
                         onDrop={handleDrop}
-                        className={`border-2 border-dashed rounded-2xl p-16 text-center transition-all duration-300 ${isDragActive ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-900/10' : 'border-gray-300 dark:border-dark-border hover:border-brand-400 hover:bg-gray-50 dark:hover:bg-dark-bg'}`}
+                        className={`border-2 border-dashed rounded-2xl p-16 text-center transition-all duration-300 ${isDragActive ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-900/10' : 'border-gray-300 dark:border-gold-500/30 hover:border-brand-500 dark:hover:border-brand-500 hover:bg-gray-50 dark:hover:bg-brand-900/10'}`}
                     >
                         <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6 transition-colors ${isDragActive ? 'bg-brand-100 text-brand-600 dark:bg-brand-900/30 dark:text-brand-400' : 'bg-gray-100 text-gray-500 dark:bg-dark-border dark:text-gray-400'}`}>
                             <UploadCloud className="w-10 h-10" />
                         </div>
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Drag & drop your resume</h3>
+                        <h3 className="text-2xl font-bold text-primary-theme mb-2">Drag & drop your resume</h3>
                         <p className="text-gray-500 dark:text-gray-400 mb-8">Supports PDF up to 5MB</p>
-                        <label className="cursor-pointer bg-brand-500 text-white px-8 py-3.5 rounded-full font-bold hover:bg-brand-600 transition-colors shadow-lg shadow-brand-500/30 inline-flex items-center gap-2">
+                        <label className="cursor-pointer btn-primary rounded-full px-8 py-3.5 inline-flex items-center gap-2">
                             Browse Files
                             <input type="file" className="hidden" accept=".pdf" onChange={handleFileChange} />
                         </label>
@@ -100,7 +100,7 @@ const UploadResume = () => {
                                 <FileText className="h-10 w-10 text-brand-500" />
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-bold text-gray-900 dark:text-white truncate">{file.name}</p>
+                                <p className="font-bold text-primary-theme truncate">{file.name}</p>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{(file.size / 1024 / 1024).toFixed(2)} MB • PDF Document</p>
                             </div>
                             <button onClick={() => !loading && setFile(null)} disabled={loading} className="p-2 text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors ml-4 shrink-0">
@@ -120,8 +120,8 @@ const UploadResume = () => {
                 {loading && (
                     <div className="mt-6 p-6 border border-brand-200 dark:border-brand-900/50 rounded-2xl bg-brand-50/50 dark:bg-brand-900/10 text-center">
                         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-500 mx-auto mb-4"></div>
-                        <h4 className="font-bold text-gray-900 dark:text-white mb-1">Analyzing Resume...</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Extracting skills using AI.</p>
+                        <h4 className="font-bold text-primary-theme mb-1">Analyzing Resume...</h4>
+                        <p className="text-sm text-secondary-theme">Extracting skills using AI.</p>
                     </div>
                 )}
 

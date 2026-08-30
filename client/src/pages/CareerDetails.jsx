@@ -37,16 +37,16 @@ const CareerDetails = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500"></div>
         </div>
     );
-    if (!career) return <div className="text-center mt-20 text-gray-500 dark:text-gray-400">Career not found.</div>;
+    if (!career) return <div className="text-center mt-20 text-secondary-theme">Career not found.</div>;
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12 transition-colors duration-300">
-            <div className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 mb-8">
+            <div className="flex items-center gap-2 text-sm font-medium text-secondary-theme mb-8">
                 <button onClick={() => navigate('/careers')} className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-1">
                     <ArrowLeft className="w-4 h-4" /> Careers Catalog
                 </button>
                 <ChevronRight className="w-4 h-4" />
-                <span className="text-gray-900 dark:text-white font-bold">{career.name}</span>
+                <span className="text-primary-theme font-bold">{career.name}</span>
             </div>
             
             <div className="bg-white dark:bg-dark-card p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100 dark:border-dark-border relative overflow-hidden transition-colors duration-300">
@@ -57,8 +57,8 @@ const CareerDetails = () => {
                         {career.icon}
                     </div>
                     <div>
-                        <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-2">{career.name}</h1>
-                        <div className="flex flex-wrap items-center gap-4 text-sm font-bold text-gray-600 dark:text-gray-400">
+                        <h1 className="text-4xl font-extrabold text-primary-theme mb-2">{career.name}</h1>
+                        <div className="flex flex-wrap items-center gap-4 text-sm font-bold text-secondary-theme">
                             <span className="flex items-center gap-1.5 bg-gray-100 dark:bg-dark-bg px-3 py-1.5 rounded-lg border border-gray-200 dark:border-dark-border">
                                 <Briefcase className="w-4 h-4 text-brand-500" /> {career.difficulty}
                             </span>
@@ -72,7 +72,7 @@ const CareerDetails = () => {
                 <p className="text-xl text-gray-700 dark:text-gray-300 mb-10 leading-relaxed relative z-10">{career.description}</p>
                 
                 <div className="bg-gray-50 dark:bg-dark-bg rounded-2xl p-8 mb-10 border border-gray-100 dark:border-dark-border relative z-10">
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                    <h3 className="text-2xl font-bold text-primary-theme mb-6 flex items-center gap-2">
                         Industry Requirements
                         <span className="text-gray-400 dark:text-gray-500 text-lg">({career.requiredSkills.length})</span>
                     </h3>

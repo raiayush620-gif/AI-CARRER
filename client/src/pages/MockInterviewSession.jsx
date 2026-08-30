@@ -78,25 +78,25 @@ const MockInterviewSession = () => {
                     <div className="w-20 h-20 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                         <CheckCircle2 className="w-10 h-10" />
                     </div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-2">Interview Complete!</h1>
-                    <p className="text-gray-600 dark:text-gray-400 mb-8">You have successfully completed the mock interview for {session.role}.</p>
+                    <h1 className="text-3xl font-extrabold text-primary-theme mb-2">Interview Complete!</h1>
+                    <p className="text-secondary-theme mb-8">You have successfully completed the mock interview for {session.role}.</p>
                     
                     <div className="bg-gray-50 dark:bg-dark-bg p-8 rounded-2xl inline-block w-full max-w-md border border-gray-200 dark:border-dark-border mb-8">
-                        <div className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Overall Score</div>
+                        <div className="text-sm font-bold text-secondary-theme uppercase tracking-wider mb-2">Overall Score</div>
                         <div className="text-6xl font-extrabold text-brand-600 dark:text-brand-400 mb-6">{session.overallScore} <span className="text-2xl text-gray-400">/ 100</span></div>
                         
                         <div className="space-y-3">
                             <div className="flex justify-between items-center text-sm">
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Technical</span>
-                                <span className="font-bold text-gray-900 dark:text-white">{session.technicalScore}%</span>
+                                <span className="font-bold text-primary-theme">{session.technicalScore}%</span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Communication</span>
-                                <span className="font-bold text-gray-900 dark:text-white">{session.communicationScore}%</span>
+                                <span className="font-bold text-primary-theme">{session.communicationScore}%</span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
                                 <span className="font-bold text-gray-700 dark:text-gray-300">Problem Solving</span>
-                                <span className="font-bold text-gray-900 dark:text-white">{session.problemSolvingScore}%</span>
+                                <span className="font-bold text-primary-theme">{session.problemSolvingScore}%</span>
                             </div>
                         </div>
                     </div>
@@ -116,12 +116,12 @@ const MockInterviewSession = () => {
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between mb-8 gap-4 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border p-4 rounded-2xl shadow-sm">
                 <div className="flex items-center gap-3">
-                    <div className="bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 p-2 rounded-lg">
+                    <div className="bg-brand-500/10 text-brand-500 p-2 rounded-lg">
                         <Bot className="w-5 h-5" />
                     </div>
                     <div>
-                        <h2 className="font-bold text-gray-900 dark:text-white">{session?.role} Interview</h2>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{session?.difficulty} • {session?.interviewType}</p>
+                        <h2 className="font-bold text-primary-theme">{session?.role} Interview</h2>
+                        <p className="text-xs text-secondary-theme">{session?.difficulty} • {session?.interviewType}</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -140,12 +140,12 @@ const MockInterviewSession = () => {
             {/* Question Card */}
             <div className="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border p-8 rounded-3xl shadow-sm mb-6 relative">
                 <div className="flex items-start gap-4">
-                    <div className="mt-1 shrink-0 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 p-3 rounded-full">
+                    <div className="mt-1 shrink-0 bg-brand-500/10 text-brand-500 p-3 rounded-full">
                         <Bot className="w-6 h-6" />
                     </div>
                     <div>
                         <div className="text-sm font-bold text-brand-600 dark:text-brand-400 mb-1 uppercase tracking-wider">AI Interviewer</div>
-                        <p className="text-xl font-medium text-gray-900 dark:text-white leading-relaxed">
+                        <p className="text-xl font-medium text-primary-theme leading-relaxed">
                             {currentQuestion?.question}
                         </p>
                     </div>
@@ -170,7 +170,7 @@ const MockInterviewSession = () => {
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
                                 placeholder="Type your answer here..."
-                                className="w-full min-h-[200px] p-5 bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white resize-y"
+                                className="w-full min-h-[200px] p-5 input-field rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme resize-y"
                             />
                         </div>
                         <div className="mt-4 flex justify-end">
@@ -187,8 +187,8 @@ const MockInterviewSession = () => {
             ) : (
                 <div className="space-y-6">
                     {/* User's Answer */}
-                    <div className="bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border p-6 rounded-3xl">
-                        <div className="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Your Answer</div>
+                    <div className="input-field p-6 rounded-3xl">
+                        <div className="text-sm font-bold text-secondary-theme mb-2 uppercase tracking-wider">Your Answer</div>
                         <p className="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{currentQuestion.answer}</p>
                     </div>
 
@@ -198,8 +198,8 @@ const MockInterviewSession = () => {
                             <div className="text-sm font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wider flex items-center gap-2">
                                 <Sparkles className="w-4 h-4" /> Evaluation Feedback
                             </div>
-                            <div className="bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border px-4 py-2 rounded-xl text-center">
-                                <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Score</div>
+                            <div className="input-field px-4 py-2 rounded-xl text-center">
+                                <div className="text-xs font-bold text-secondary-theme uppercase">Score</div>
                                 <div className="text-2xl font-extrabold text-brand-600 dark:text-brand-400">{currentQuestion.score}<span className="text-base text-gray-400">/10</span></div>
                             </div>
                         </div>

@@ -206,8 +206,8 @@ const ResumeImprovement = () => {
             <div className="w-20 h-20 bg-gray-50 dark:bg-dark-bg rounded-full flex items-center justify-center mx-auto mb-6 border border-gray-100 dark:border-dark-border shadow-sm">
                 <FileText className="w-10 h-10 text-gray-400 dark:text-gray-500" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">No Resume Found</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">Upload and analyze your resume first to use the AI Improvement tools.</p>
+            <h2 className="text-3xl font-bold text-primary-theme mb-3">No Resume Found</h2>
+            <p className="text-secondary-theme mb-8">Upload and analyze your resume first to use the AI Improvement tools.</p>
             <button onClick={() => navigate('/upload-resume')} className="bg-brand-500 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-brand-600 transition-colors shadow-lg shadow-brand-500/30">
                 Upload Resume
             </button>
@@ -218,11 +218,11 @@ const ResumeImprovement = () => {
         <div className="max-w-7xl mx-auto transition-colors duration-300 flex flex-col h-[calc(100vh-100px)]">
             <div className="flex justify-between items-end mb-6 shrink-0">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
+                    <h1 className="text-3xl font-extrabold text-primary-theme flex items-center gap-3">
                         <Sparkles className="w-8 h-8 text-brand-500" />
                         AI Resume Improvement
                     </h1>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2 font-medium">Transform your resume into a more professional, impactful, and ATS-friendly version.</p>
+                    <p className="text-secondary-theme mt-2 font-medium">Transform your resume into a more professional, impactful, and ATS-friendly version.</p>
                 </div>
                 <button onClick={downloadResume} className="hidden sm:flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 rounded-xl font-bold hover:opacity-90 transition-opacity">
                     <Download className="w-4 h-4" /> Download Improved
@@ -233,17 +233,17 @@ const ResumeImprovement = () => {
                 {/* Left Panel - Sections */}
                 <div className="lg:w-64 shrink-0 flex flex-col gap-3 overflow-y-auto pr-2 pb-4">
                     <div className="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border p-4 rounded-2xl mb-2">
-                        <label className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 block">Target Job Role</label>
+                        <label className="text-xs font-bold text-secondary-theme uppercase tracking-wider mb-2 block">Target Job Role</label>
                         <input 
                             type="text" 
                             value={targetRole}
                             onChange={(e) => setTargetRole(e.target.value)}
                             placeholder="e.g. Frontend Developer"
-                            className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-gray-900 dark:text-white"
+                            className="w-full bg-transparent border border-[rgba(29,42,34,0.12)] dark:border-[rgba(198,161,91,0.12)] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-brand-500 text-primary-theme"
                         />
                     </div>
                     
-                    <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2">Resume Sections</h3>
+                    <h3 className="text-xs font-bold text-secondary-theme uppercase tracking-wider px-2">Resume Sections</h3>
                     {SECTIONS.map(sec => {
                         const isApproved = data.sections[sec.id]?.status === 'approved';
                         return (
@@ -253,7 +253,7 @@ const ResumeImprovement = () => {
                                 className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all border ${
                                     activeSection === sec.id 
                                         ? 'bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 border-brand-200 dark:border-brand-800/30 shadow-sm' 
-                                        : 'bg-white dark:bg-dark-card text-gray-600 dark:text-gray-400 border-transparent hover:border-gray-200 dark:hover:border-dark-border'
+                                        : 'bg-white dark:bg-dark-card text-secondary-theme border-transparent hover:border-gray-200 dark:hover:border-dark-border'
                                 }`}
                             >
                                 <span>{sec.label}</span>
@@ -266,7 +266,7 @@ const ResumeImprovement = () => {
                 {/* Right Panel - Editor */}
                 <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-3xl shadow-sm">
                     <div className="flex-1 overflow-y-auto p-6">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-dark-border pb-4">
+                        <h2 className="text-2xl font-bold text-primary-theme mb-6 border-b border-gray-100 dark:border-dark-border pb-4">
                             {SECTIONS.find(s => s.id === activeSection)?.label}
                         </h2>
 
@@ -280,7 +280,7 @@ const ResumeImprovement = () => {
                                     value={editorContent}
                                     onChange={(e) => setEditorContent(e.target.value)}
                                     placeholder={`Paste or type your existing ${activeSection} here...`}
-                                    className="flex-1 min-h-[250px] p-4 bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white resize-y"
+                                    className="flex-1 min-h-[250px] p-4 bg-transparent border border-[rgba(29,42,34,0.12)] dark:border-[rgba(198,161,91,0.12)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme resize-y"
                                 />
                                 
                                 <div className="mt-4 flex flex-wrap gap-2">
@@ -313,7 +313,7 @@ const ResumeImprovement = () => {
                                         value={aiImprovedText}
                                         onChange={(e) => setAiImprovedText(e.target.value)}
                                         placeholder="AI improvements will appear here..."
-                                        className="w-full h-full p-4 bg-brand-50/50 dark:bg-brand-900/10 border border-brand-100 dark:border-brand-900/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white resize-y"
+                                        className="w-full h-full p-4 bg-brand-50/50 dark:bg-brand-900/10 border border-brand-100 dark:border-brand-900/30 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme resize-y"
                                     />
                                 </div>
                                 
@@ -342,7 +342,7 @@ const ResumeImprovement = () => {
                             <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 pt-8 border-t border-gray-100 dark:border-dark-border">
                                 {suggestions.length > 0 && (
                                     <div>
-                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <h4 className="text-sm font-bold text-primary-theme mb-4 flex items-center gap-2">
                                             <Briefcase className="w-4 h-4 text-brand-500" /> Stronger Action Verbs
                                         </h4>
                                         <div className="space-y-3">
@@ -353,7 +353,7 @@ const ResumeImprovement = () => {
                                                         <span className="text-gray-400">→</span>
                                                         <span className="font-bold text-green-600 dark:text-green-400">{s.suggestion}</span>
                                                     </div>
-                                                    <p className="text-gray-500 dark:text-gray-400 text-xs">{s.reason}</p>
+                                                    <p className="text-secondary-theme text-xs">{s.reason}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -362,7 +362,7 @@ const ResumeImprovement = () => {
                                 
                                 {weakStatements.length > 0 && (
                                     <div>
-                                        <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                                        <h4 className="text-sm font-bold text-primary-theme mb-4 flex items-center gap-2">
                                             <AlertCircle className="w-4 h-4 text-amber-500" /> Weak Statements Detected
                                         </h4>
                                         <div className="space-y-3">
@@ -370,7 +370,7 @@ const ResumeImprovement = () => {
                                                 <div key={i} className="bg-amber-50/50 dark:bg-amber-900/10 p-3 rounded-xl border border-amber-100 dark:border-amber-900/30 text-sm">
                                                     <p className="font-medium text-gray-800 dark:text-gray-200 mb-1">"{w.text}"</p>
                                                     <p className="text-amber-700 dark:text-amber-500 text-xs font-semibold mb-1">{w.reason}</p>
-                                                    <p className="text-gray-600 dark:text-gray-400 text-xs">Suggestion: {w.suggestion}</p>
+                                                    <p className="text-secondary-theme text-xs">Suggestion: {w.suggestion}</p>
                                                 </div>
                                             ))}
                                         </div>
@@ -383,7 +383,7 @@ const ResumeImprovement = () => {
                         {activeSection === 'skills' && (
                             <div className="mt-10 pt-8 border-t border-gray-100 dark:border-dark-border">
                                 <div className="flex justify-between items-center mb-4">
-                                    <h4 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                    <h4 className="text-sm font-bold text-primary-theme flex items-center gap-2">
                                         <Target className="w-4 h-4 text-brand-500" /> ATS Keyword Suggestions
                                     </h4>
                                     <button onClick={fetchAtsKeywords} className="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-3 py-1.5 rounded-lg hover:bg-brand-100 transition-colors">
@@ -406,7 +406,7 @@ const ResumeImprovement = () => {
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Click generate to get role-specific keywords. Do not add skills you don't actually possess.</p>
+                                    <p className="text-sm text-secondary-theme">Click generate to get role-specific keywords. Do not add skills you don't actually possess.</p>
                                 )}
                             </div>
                         )}

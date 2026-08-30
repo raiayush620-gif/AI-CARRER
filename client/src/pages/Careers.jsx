@@ -47,8 +47,8 @@ const Careers = () => {
             <div className="w-16 h-16 bg-red-50 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100 dark:border-red-900/30">
                 <AlertCircle className="w-8 h-8 text-red-500" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Oops!</h2>
-            <p className="text-gray-600 dark:text-gray-400">{error}</p>
+            <h2 className="text-2xl font-bold text-primary-theme mb-2">Oops!</h2>
+            <p className="text-secondary-theme">{error}</p>
         </div>
     );
 
@@ -59,8 +59,8 @@ const Careers = () => {
                     <Compass className="w-4 h-4" /> 
                     <span>Career Pathways</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">Choose Your Path</h1>
-                <p className="mt-2 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-primary-theme tracking-tight mb-4">Choose Your Path</h1>
+                <p className="mt-2 text-xl text-secondary-theme max-w-2xl mx-auto">
                     Select a career destination. Our AI will analyze your skills against the industry standards required to get hired.
                 </p>
             </div>
@@ -74,14 +74,14 @@ const Careers = () => {
                             <div className="w-14 h-14 bg-gray-50 dark:bg-dark-bg border border-gray-100 dark:border-dark-border rounded-xl flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
                                 {career.icon}
                             </div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight">{career.name}</h3>
+                            <h3 className="text-xl font-bold text-primary-theme leading-tight">{career.name}</h3>
                         </div>
                         
-                        <p className="text-gray-600 dark:text-gray-400 text-base mb-8 flex-grow leading-relaxed">
+                        <p className="text-secondary-theme text-base mb-8 flex-grow leading-relaxed">
                             {career.description}
                         </p>
                         
-                        <div className="flex items-center gap-4 text-sm font-bold text-gray-600 dark:text-gray-400 mb-8 border-t border-b border-gray-100 dark:border-dark-border py-4">
+                        <div className="flex items-center gap-4 text-sm font-bold text-secondary-theme mb-8 border-t border-b border-gray-100 dark:border-dark-border py-4">
                             <div className="flex items-center gap-1.5">
                                 <Briefcase className="w-4 h-4 text-brand-500" />
                                 <span className="bg-gray-100 dark:bg-dark-bg px-2.5 py-1 rounded-md">{career.difficulty}</span>

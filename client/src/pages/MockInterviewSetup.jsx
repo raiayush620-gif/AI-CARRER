@@ -49,11 +49,11 @@ const MockInterviewSetup = () => {
     return (
         <div className="max-w-5xl mx-auto py-8 transition-colors duration-300">
             <div className="text-center mb-12">
-                <div className="w-20 h-20 bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-brand-500/10">
+                <div className="w-20 h-20 bg-brand-500/10 text-brand-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-brand-500/10">
                     <Mic className="w-10 h-10" />
                 </div>
-                <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white mb-3">AI Mock Interview</h1>
-                <p className="text-gray-600 dark:text-gray-400 text-lg max-w-xl mx-auto">Practice realistic interviews, receive personalized feedback, and improve your communication skills.</p>
+                <h1 className="text-4xl font-extrabold text-primary-theme mb-3">AI Mock Interview</h1>
+                <p className="text-secondary-theme text-lg max-w-xl mx-auto">Practice realistic interviews, receive personalized feedback, and improve your communication skills.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -73,7 +73,7 @@ const MockInterviewSetup = () => {
                                     onChange={(e) => setRole(e.target.value)}
                                     placeholder="e.g. Frontend Developer"
                                     list="roles"
-                                    className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white"
+                                    className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme"
                                 />
                                 <datalist id="roles">
                                     {ROLES.map(r => <option key={r} value={r} />)}
@@ -88,7 +88,7 @@ const MockInterviewSetup = () => {
                                     <select 
                                         value={difficulty}
                                         onChange={(e) => setDifficulty(e.target.value)}
-                                        className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white appearance-none"
+                                        className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme appearance-none"
                                     >
                                         <option>Beginner</option>
                                         <option>Intermediate</option>
@@ -102,7 +102,7 @@ const MockInterviewSetup = () => {
                                     <select 
                                         value={interviewType}
                                         onChange={(e) => setInterviewType(e.target.value)}
-                                        className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-gray-900 dark:text-white appearance-none"
+                                        className="w-full bg-gray-50 dark:bg-dark-bg border border-gray-200 dark:border-dark-border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500 text-primary-theme appearance-none"
                                     >
                                         <option>Technical</option>
                                         <option>HR</option>
@@ -124,7 +124,7 @@ const MockInterviewSetup = () => {
                                             className={`flex-1 py-3 rounded-xl font-bold transition-colors border ${
                                                 totalQuestions === num 
                                                     ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-500 text-brand-600 dark:text-brand-400' 
-                                                    : 'bg-white dark:bg-dark-card border-gray-200 dark:border-dark-border text-gray-600 dark:text-gray-400 hover:border-brand-300'
+                                                    : 'bg-white dark:bg-dark-card border-gray-200 dark:border-dark-border text-secondary-theme hover:border-brand-300'
                                             }`}
                                         >
                                             {num} Questions
@@ -150,25 +150,25 @@ const MockInterviewSetup = () => {
                 {/* History Panel */}
                 <div>
                     <div className="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border p-6 rounded-3xl shadow-sm h-full flex flex-col">
-                        <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                        <h2 className="text-lg font-bold text-primary-theme mb-6 flex items-center gap-2">
                             <History className="w-5 h-5 text-gray-400" /> My Interview History
                         </h2>
                         
                         <div className="flex-1 overflow-y-auto space-y-4">
                             {history.length === 0 ? (
-                                <div className="text-center py-10 text-gray-500 dark:text-gray-400">
+                                <div className="text-center py-10 text-secondary-theme">
                                     <p>No interviews completed yet.</p>
                                 </div>
                             ) : (
                                 history.map(session => (
                                     <div key={session._id} className="p-4 rounded-2xl bg-gray-50 dark:bg-dark-bg border border-gray-100 dark:border-dark-border hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
                                         <div className="flex justify-between items-start mb-2">
-                                            <h3 className="font-bold text-gray-900 dark:text-white truncate pr-2">{session.role}</h3>
+                                            <h3 className="font-bold text-primary-theme truncate pr-2">{session.role}</h3>
                                             <div className="text-xs font-bold text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/20 px-2 py-1 rounded-md">
                                                 {session.overallScore !== null ? `${session.overallScore}/100` : 'Inc.'}
                                             </div>
                                         </div>
-                                        <div className="flex flex-wrap gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
+                                        <div className="flex flex-wrap gap-2 text-xs text-secondary-theme mb-3">
                                             <span className="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border px-2 py-0.5 rounded">{session.difficulty}</span>
                                             <span className="bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border px-2 py-0.5 rounded">{session.interviewType}</span>
                                         </div>

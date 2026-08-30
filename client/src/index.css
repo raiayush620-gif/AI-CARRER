@@ -4,28 +4,86 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-brand-50: #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-200: #99f6e4;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-800: #115e59;
-  --color-brand-900: #134e4a;
-  --color-brand-950: #042f2e;
+  /* FOREST (BRAND) */
+  --color-brand-50: #f4f8f6;
+  --color-brand-100: #e2ede7;
+  --color-brand-200: #c5dbce;
+  --color-brand-300: #9cc1b0;
+  --color-brand-400: #3f7657; /* Forest Light */
+  --color-brand-500: #1f4d38; /* Forest Primary */
+  --color-brand-600: #286044; /* Forest Hover */
+  --color-brand-700: #1a3c2d;
+  --color-brand-800: #153225;
+  --color-brand-900: #0d1a13;
+  --color-brand-950: #070e0a;
   
-  --color-dark-bg: #0f172a;
-  --color-dark-card: #1e293b;
-  --color-dark-border: #334155;
+  /* GOLD */
+  --color-gold-50: #fbf9f4;
+  --color-gold-100: #f5f0e3;
+  --color-gold-200: #ebdcc1;
+  --color-gold-300: #dfc298;
+  --color-gold-400: #d8b56a; /* Light Gold */
+  --color-gold-500: #c6a15b; /* Primary Gold Dark */
+  --color-gold-600: #a98242; /* Primary Gold Light / Muted Gold */
+  --color-gold-700: #886532;
+  --color-gold-800: #71522e;
+  --color-gold-900: #5d4328;
+  --color-gold-950: #342312;
+
+  /* DARK MODE */
+  --color-dark-bg: #101C17;
+  --color-dark-secondary: #14251D;
+  --color-dark-sidebar: #0D1712;
+  --color-dark-card: #182820;
+  --color-dark-elevated: #1D3027;
+  --color-dark-border: rgba(198, 161, 91, 0.14); /* gold border */
+  
+  /* LIGHT MODE */
+  --color-light-bg: #F5F3EC;
+  --color-light-secondary: #ECE9DF;
+  --color-light-card: #FFFFFF;
+  --color-light-elevated: #F0EEE6;
 }
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 antialiased transition-colors duration-300;
+    @apply bg-light-bg text-[#1D2A22] antialiased transition-colors duration-300;
   }
   .dark body {
-    @apply bg-dark-bg text-gray-100;
+    @apply bg-dark-bg text-[#F1EFE7];
+  }
+}
+
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-light-card dark:bg-dark-card border border-gray-200/50 dark:border-dark-border rounded-xl md:rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.10)] transition-all;
+  }
+  .card:hover {
+    @apply dark:border-[rgba(198,161,91,0.24)] transform -translate-y-[1px];
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply bg-brand-500 hover:bg-brand-600 text-white dark:text-[#F1EFE7] px-4 py-2 rounded-lg font-medium transition-colors shadow-sm;
+  }
+  .btn-secondary {
+    @apply bg-transparent border border-gold-500 text-gold-500 hover:bg-[rgba(198,161,91,0.08)] px-4 py-2 rounded-lg font-medium transition-colors;
+  }
+  
+  /* Inputs */
+  .input-field {
+    @apply w-full bg-white dark:bg-dark-card border border-[rgba(29,42,34,0.14)] dark:border-[rgba(198,161,91,0.16)] text-[#1D2A22] dark:text-[#F1EFE7] px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-700 dark:focus:ring-gold-500 focus:border-transparent transition-all;
+  }
+
+  /* Typography */
+  .text-primary-theme {
+    @apply text-[#1D2A22] dark:text-[#F1EFE7];
+  }
+  .text-secondary-theme {
+    @apply text-[#5F665F] dark:text-[#B8B9AF];
+  }
+  .text-muted-theme {
+    @apply text-[#7A807A] dark:text-[#858A82];
   }
 }

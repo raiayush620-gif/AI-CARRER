@@ -53,18 +53,18 @@ const DetailedRoadmap = () => {
         </div>
     );
     if (!roadmap) return (
-        <div className="text-center mt-20 text-gray-500 dark:text-gray-400">Roadmap not found.</div>
+        <div className="text-center mt-20 text-secondary-theme">Roadmap not found.</div>
     );
 
     return (
         <div className="max-w-4xl mx-auto px-4 py-12 transition-colors duration-300">
             {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 mb-8">
+            <div className="flex items-center gap-2 text-sm font-medium text-secondary-theme mb-8">
                 <button onClick={() => navigate('/roadmap')} className="hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-1">
                     <ArrowLeft className="w-4 h-4" /> Overview
                 </button>
                 <ChevronRight className="w-4 h-4" />
-                <span className="text-gray-900 dark:text-white truncate max-w-[150px] sm:max-w-xs">{career}</span>
+                <span className="text-primary-theme truncate max-w-[150px] sm:max-w-xs">{career}</span>
                 <ChevronRight className="w-4 h-4" />
                 <span className="text-brand-600 dark:text-brand-400 font-bold truncate">{skill}</span>
             </div>
@@ -78,12 +78,12 @@ const DetailedRoadmap = () => {
                             <Compass className="w-4 h-4" /> 
                             <span>Learning Module</span>
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-2">{skill}</h1>
-                        <p className="text-lg text-gray-600 dark:text-gray-400">Master this skill to advance your career as a {career}.</p>
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-primary-theme mb-2">{skill}</h1>
+                        <p className="text-lg text-secondary-theme">Master this skill to advance your career as a {career}.</p>
                     </div>
                     <div className="w-full md:w-64">
                         <div className="flex justify-between items-end mb-2">
-                            <span className="text-sm font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider">Progress</span>
+                            <span className="text-sm font-bold text-secondary-theme uppercase tracking-wider">Progress</span>
                             <span className="text-2xl font-extrabold text-brand-600 dark:text-brand-400">{roadmap.progressPercentage}%</span>
                         </div>
                         <div className="w-full bg-gray-100 dark:bg-dark-bg rounded-full h-3 border border-gray-200 dark:border-dark-border overflow-hidden">
@@ -94,7 +94,7 @@ const DetailedRoadmap = () => {
             </div>
 
             {/* Curriculum */}
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Module Curriculum</h2>
+            <h2 className="text-2xl font-bold text-primary-theme mb-6">Module Curriculum</h2>
             <div className="space-y-4">
                 {roadmap.steps.map(step => {
                     const isCompleted = roadmap.completedSteps.includes(step.step);
@@ -110,7 +110,7 @@ const DetailedRoadmap = () => {
                         >
                             <div className="mt-0.5 shrink-0 transition-transform group-hover:scale-110">
                                 {isCompleted ? (
-                                    <CheckCircle2 className="w-7 h-7 text-green-500 dark:text-green-400" />
+                                    <CheckCircle2 className="w-7 h-7 text-brand-500 dark:text-green-400" />
                                 ) : (
                                     <Circle className="w-7 h-7 text-gray-300 dark:text-gray-600 group-hover:text-brand-400" />
                                 )}
@@ -118,8 +118,8 @@ const DetailedRoadmap = () => {
                             <div>
                                 <h3 className={`text-xl font-bold mb-2 transition-colors ${
                                     isCompleted 
-                                    ? 'text-gray-500 dark:text-gray-400 line-through' 
-                                    : 'text-gray-900 dark:text-white'
+                                    ? 'text-secondary-theme line-through' 
+                                    : 'text-primary-theme'
                                 }`}>
                                     <span className="text-brand-500 dark:text-brand-400 mr-2 opacity-80">Step {step.step}.</span>
                                     {step.title}
