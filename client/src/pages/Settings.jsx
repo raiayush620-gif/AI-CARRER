@@ -46,9 +46,7 @@ const Settings = () => {
         formData.append('image', selectedFile);
 
         try {
-            const { data } = await api.post('/users/profile-image', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            const { data } = await api.post('/users/profile-image', formData);
             setUser({ ...user, profileImage: data.profileImage });
             setSelectedFile(null);
             setPreviewUrl(null);

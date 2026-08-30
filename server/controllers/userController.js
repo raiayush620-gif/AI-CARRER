@@ -1,12 +1,15 @@
 const User = require('../models/User');
 const cloudinary = require('cloudinary').v2;
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+const isCloudinaryConfigured = process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET;
+
+if (isCloudinaryConfigured) {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET
+    });
+}
 
 exports.uploadProfileImage = async (req, res) => {
     try {
@@ -19,31 +22,33 @@ exports.uploadProfileImage = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Optional: If user already has an image, delete it from Cloudinary to save space
-        if (user.profileImage) {
-            try {
-                // Extract public_id from Cloudinary URL
-                // Example URL: https://res.cloudinary.com/demo/image/upload/v1234567890/folder/filename.jpg
-                const urlParts = user.profileImage.split('/');
-                const filenameWithExt = urlParts[urlParts.length - 1];
-                const filename = filenameWithExt.split('.')[0];
-                const folderIndex = urlParts.indexOf('upload') + 2; // +1 is version, +2 is folder
-                
-                let publicId = filename;
-                if (folderIndex < urlParts.length - 1) {
-                    const pathParts = urlParts.slice(folderIndex, urlParts.length - 1);
-                    publicId = pathParts.join('/') + '/' + filename;
+        if (isCloudinaryConfigured) {
+            // Delete old image from Cloudinary
+            if (user.profileImage && user.profileImage.includes('cloudinary')) {
+                try {
+                    const urlParts = user.profileImage.split('/');
+                    const filenameWithExt = urlParts[urlParts.length - 1];
+                    const filename = filenameWithExt.split('.')[0];
+                    const folderIndex = urlParts.indexOf('upload') + 2;
+                    let publicId = filename;
+                    if (folderIndex < urlParts.length - 1) {
+                        const pathParts = urlParts.slice(folderIndex, urlParts.length - 1);
+                        publicId = pathParts.join('/') + '/' + filename;
+                    }
+                    await cloudinary.uploader.destroy(publicId);
+                } catch (err) {
+                    console.error("Failed to delete previous image from Cloudinary", err);
                 }
-                
-                await cloudinary.uploader.destroy(publicId);
-            } catch (err) {
-                console.error("Failed to delete previous image from Cloudinary", err);
             }
+            user.profileImage = req.file.path; // Cloudinary URL
+        } else {
+            // Fallback: Convert memory buffer to Base64 data URI
+            const b64 = Buffer.from(req.file.buffer).toString('base64');
+            const dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+            user.profileImage = dataURI;
         }
 
-        user.profileImage = req.file.path; // The Cloudinary URL provided by multer-storage-cloudinary
         await user.save();
-
         res.json({ message: 'Profile image uploaded', profileImage: user.profileImage });
     } catch (error) {
         console.error("Error uploading profile image:", error);
@@ -58,19 +63,17 @@ exports.removeProfileImage = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        if (user.profileImage) {
+        if (isCloudinaryConfigured && user.profileImage && user.profileImage.includes('cloudinary')) {
             try {
                 const urlParts = user.profileImage.split('/');
                 const filenameWithExt = urlParts[urlParts.length - 1];
                 const filename = filenameWithExt.split('.')[0];
                 const folderIndex = urlParts.indexOf('upload') + 2; 
-                
                 let publicId = filename;
                 if (folderIndex < urlParts.length - 1) {
                     const pathParts = urlParts.slice(folderIndex, urlParts.length - 1);
                     publicId = pathParts.join('/') + '/' + filename;
                 }
-                
                 await cloudinary.uploader.destroy(publicId);
             } catch (err) {
                 console.error("Failed to delete image from Cloudinary", err);
