@@ -6,8 +6,11 @@ const cloudinary = require('cloudinary').v2;
 const { protect } = require('../middleware/authMiddleware');
 const userController = require('../controllers/userController');
 
-// Check if Cloudinary is configured
-const isCloudinaryConfigured = process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET;
+// Check if Cloudinary is configured (and not using dummy placeholders)
+const isCloudinaryConfigured = 
+    process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_CLOUD_NAME !== 'your_cloud_name' &&
+    process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_KEY !== 'your_api_key' &&
+    process.env.CLOUDINARY_API_SECRET && process.env.CLOUDINARY_API_SECRET !== 'your_api_secret';
 
 let storage;
 
