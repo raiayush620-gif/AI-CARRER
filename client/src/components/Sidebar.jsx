@@ -8,7 +8,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
     const location = useLocation();
-    const { logout } = useContext(AuthContext);
+    const { logout, user } = useContext(AuthContext);
 
     const navItems = [
         { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
@@ -35,7 +35,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             )}
 
             {/* Sidebar Content */}
-            <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-dark-bg border-r border-gray-200 dark:border-dark-border transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col h-[calc(100vh-64px)] overflow-y-auto`}>
+            <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 bg-white/90 dark:bg-dark-card/90 backdrop-blur-xl border-r border-gray-200/50 dark:border-dark-border/50 transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col h-[calc(100vh-64px)] overflow-y-auto`}>
                 <div className="flex-1 py-6 flex flex-col gap-1 px-4">
                     <div className="lg:hidden flex justify-end mb-4">
                         <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
@@ -63,12 +63,28 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 </div>
 
                 <div className="p-4 border-t border-gray-200 dark:border-dark-border space-y-1">
-                    <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-card transition-all font-medium">
+                    <Link to="/settings" onClick={() => setIsOpen(false)} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-card transition-all font-medium">
                         <Settings className="w-5 h-5" /> Settings
-                    </button>
+                    </Link>
                     <button onClick={logout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all font-medium">
                         <LogOut className="w-5 h-5" /> Logout
                     </button>
+                    
+                    {user && (
+                        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-dark-border flex items-center gap-3 px-2">
+                            {user.profileImage ? (
+                                <img src={user.profileImage} alt="Profile" className="w-9 h-9 rounded-full object-cover" />
+                            ) : (
+                                <div className="w-9 h-9 bg-brand-100 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 rounded-full flex items-center justify-center font-bold">
+                                    {user.name.charAt(0).toUpperCase()}
+                                </div>
+                            )}
+                            <div className="flex-1 min-w-0">
+                                <div className="text-sm font-bold text-gray-900 dark:text-white truncate">{user.name}</div>
+                                <div className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </aside>
         </>

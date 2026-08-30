@@ -35,7 +35,7 @@ exports.login = async (req, res, next) => {
 
         if (user && (await user.matchPassword(password))) {
             res.json({
-                _id: user.id, name: user.name, email: user.email, selectedCareer: user.selectedCareer, token: generateToken(user._id)
+                _id: user.id, name: user.name, email: user.email, selectedCareer: user.selectedCareer, profileImage: user.profileImage, token: generateToken(user._id)
             });
         } else {
             res.status(401); throw new Error('Invalid email or password');

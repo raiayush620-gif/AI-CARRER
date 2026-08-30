@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { FileText, Briefcase, Map, Target, TrendingUp, Sparkles, AlertCircle, Mic, Star } from 'lucide-react';
+import { FileText, Briefcase, Map, Target, TrendingUp, Sparkles, AlertCircle, Mic, Star, Upload, Compass } from 'lucide-react';
 import api from '../services/api';
 
 const Dashboard = () => {

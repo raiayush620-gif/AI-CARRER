@@ -7,7 +7,7 @@ const SidebarLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="min-h-screen flex flex-col font-sans bg-white dark:bg-dark-bg transition-colors duration-300">
+        <div className="min-h-screen flex flex-col font-sans bg-transparent transition-colors duration-300">
             {/* Top Navbar */}
             <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             
@@ -16,7 +16,7 @@ const SidebarLayout = () => {
                 <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
                 
                 {/* Main Content Area */}
-                <main className="flex-1 overflow-y-auto bg-gray-50/30 dark:bg-dark-bg">
+                <main className="flex-1 overflow-y-auto bg-transparent">
                     <div className="w-full h-full p-4 lg:p-8">
                         <Outlet />
                     </div>

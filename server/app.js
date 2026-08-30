@@ -29,6 +29,7 @@ app.use('/api/roadmap', roadmapRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/resume-improvement', require('./routes/resumeImprovementRoutes'));
 app.use('/api/interviews', require('./routes/interviewRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 app.use(errorHandler);
 

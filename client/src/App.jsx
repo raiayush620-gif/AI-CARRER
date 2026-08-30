@@ -18,11 +18,15 @@ import AIChatbot from './pages/AIChatbot';
 import ResumeImprovement from './pages/ResumeImprovement';
 import MockInterviewSetup from './pages/MockInterviewSetup';
 import MockInterviewSession from './pages/MockInterviewSession';
+import Settings from './pages/Settings';
+import AppBackground from './components/AppBackground';
 
 function App() {
   return (
-    <Routes>
-      {/* Public Routes with standalone Navbar */}
+    <>
+      <AppBackground />
+      <Routes>
+        {/* Public Routes with standalone Navbar */}
       <Route path="/" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><LandingPage /></main></div>} />
       <Route path="/login" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><Login /></main></div>} />
       <Route path="/register" element={<div className="min-h-screen flex flex-col"><Navbar /><main className="flex-grow"><Register /></main></div>} />
@@ -40,8 +44,10 @@ function App() {
         <Route path="/resume-improvement" element={<ResumeImprovement />} />
         <Route path="/mock-interview" element={<MockInterviewSetup />} />
         <Route path="/mock-interview/:id" element={<MockInterviewSession />} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>
+    </>
   );
 }
 

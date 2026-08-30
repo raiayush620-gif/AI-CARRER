@@ -52,10 +52,16 @@ const Navbar = ({ setSidebarOpen }) => {
                             <div className="relative">
                                 <button 
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                                    className="flex items-center gap-2 bg-gray-100 dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-full py-1.5 px-4 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                                    className="flex items-center gap-2 bg-gray-100 dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-full py-1 px-1.5 hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
                                 >
-                                    <UserIcon className="h-4 w-4" />
-                                    <span className="text-sm font-medium">{user.name.split(' ')[0]}</span>
+                                    {user.profileImage ? (
+                                        <img src={user.profileImage} alt="Profile" className="w-7 h-7 rounded-full object-cover" />
+                                    ) : (
+                                        <div className="w-7 h-7 bg-brand-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                                            {user.name.charAt(0).toUpperCase()}
+                                        </div>
+                                    )}
+                                    <span className="text-sm font-medium pr-3">{user.name.split(' ')[0]}</span>
                                 </button>
                                 {dropdownOpen && (
                                     <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-dark-card rounded-xl shadow-lg border border-gray-100 dark:border-dark-border py-1 z-50">
