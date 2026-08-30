@@ -25,37 +25,42 @@ exports.uploadProfileImage = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        if (isCloudinaryConfigured) {
-            // Delete old image from Cloudinary
-            if (user.profileImage && user.profileImage.includes('cloudinary')) {
-                try {
-                    const urlParts = user.profileImage.split('/');
-                    const filenameWithExt = urlParts[urlParts.length - 1];
-                    const filename = filenameWithExt.split('.')[0];
-                    const folderIndex = urlParts.indexOf('upload') + 2;
-                    let publicId = filename;
-                    if (folderIndex < urlParts.length - 1) {
-                        const pathParts = urlParts.slice(folderIndex, urlParts.length - 1);
-                        publicId = pathParts.join('/') + '/' + filename;
-                    }
-                    await cloudinary.uploader.destroy(publicId);
-                } catch (err) {
-                    console.error("Failed to delete previous image from Cloudinary", err);
+        // Handle deletion of previous cloudinary image if it exists
+        if (user.profileImage && user.profileImage.includes('cloudinary') && isCloudinaryConfigured) {
+            try {
+                const urlParts = user.profileImage.split('/');
+                const filenameWithExt = urlParts[urlParts.length - 1];
+                const filename = filenameWithExt.split('.')[0];
+                const folderIndex = urlParts.indexOf('upload') + 2;
+                let publicId = filename;
+                if (folderIndex < urlParts.length - 1) {
+                    const pathParts = urlParts.slice(folderIndex, urlParts.length - 1);
+                    publicId = pathParts.join('/') + '/' + filename;
                 }
+                await cloudinary.uploader.destroy(publicId);
+            } catch (err) {
+                console.error("Failed to delete previous image from Cloudinary", err);
             }
-            user.profileImage = req.file.path; // Cloudinary URL
-        } else {
-            // Fallback: Convert memory buffer to Base64 data URI
+        }
+
+        if (req.file.path) {
+            // CloudinaryStorage was used
+            user.profileImage = req.file.path;
+        } else if (req.file.buffer) {
+            // MemoryStorage was used
             const b64 = Buffer.from(req.file.buffer).toString('base64');
             const dataURI = "data:" + req.file.mimetype + ";base64," + b64;
             user.profileImage = dataURI;
+        } else {
+            throw new Error("File upload failed: neither path nor buffer exists on req.file");
         }
 
         await user.save();
         res.json({ message: 'Profile image uploaded', profileImage: user.profileImage });
     } catch (error) {
         console.error("Error uploading profile image:", error);
-        res.status(500).json({ message: 'Server error' });
+        try { require('fs').appendFileSync('error.log', new Date().toISOString() + ' User Controller: ' + error.stack + '\n\n'); } catch(e) {}
+        res.status(500).json({ message: 'Server error: ' + error.message });
     }
 };
 

@@ -51,7 +51,7 @@ const Settings = () => {
             setSelectedFile(null);
             setPreviewUrl(null);
         } catch (err) {
-            setError('Failed to upload profile image.');
+            setError(err.response?.data?.message || 'Failed to upload profile image.');
             console.error(err);
         } finally {
             setIsUploading(false);
